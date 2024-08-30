@@ -35,8 +35,8 @@ const SignInForm = () => {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <CustomFormField control={form.control} name="email" label="Email" placeholder="Enter your email" />
           <CustomFormField control={form.control} name="password" label="Password" placeholder="Enter your password" />
-          <Button type="submit" className="w-full bg-blue-500 text-white hover:bg-blue-400">
-            Submit
+          <Button type="submit" className="button-gradient">
+            Sign in
           </Button>
         </form>
       </Form>
