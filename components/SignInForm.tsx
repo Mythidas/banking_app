@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
 import CustomFormField from "./CustomFormField";
 import AuthFormFooter from "./AuthFormFooter";
+import { signIn } from "@/lib/actions/user.actions";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -16,6 +18,8 @@ const formSchema = z.object({
 })
 
 const SignInForm = () => {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -24,8 +28,15 @@ const SignInForm = () => {
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const response = await signIn(values);
+      if (response) {
+        router.push("/");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
@@ -35,8 +46,8 @@ const SignInForm = () => {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <CustomFormField control={form.control} name="email" label="Email" placeholder="Enter your email" />
           <CustomFormField control={form.control} name="password" label="Password" placeholder="Enter your password" />
-          <Button type="submit" className="button-gradient">
-            Sign in
+          <Button type="submit" className="button-gradient rounded-md">
+            Login
           </Button>
         </form>
       </Form>

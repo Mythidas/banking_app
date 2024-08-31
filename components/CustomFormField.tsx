@@ -9,8 +9,6 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "./ui/input";
-import { Control } from "react-hook-form";
-import { z } from "zod";
 
 interface ICustomFormField {
   control: any
@@ -31,7 +29,7 @@ const CustomFormField = ({ control, name, label, placeholder, description }: ICu
             {label}
           </FormLabel>
           <FormControl>
-            <Input placeholder={placeholder} {...field} className="border-gray-300 rounded-md" />
+            <Input placeholder={placeholder} {...field} className="border-gray-300 rounded-md" type={name.includes("password") ? "password" : "text"} />
           </FormControl>
           <FormDescription>
             {description}

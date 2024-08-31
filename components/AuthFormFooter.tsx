@@ -7,7 +7,7 @@ const AuthFormFooter = ({ description, label, href }: { description: string, lab
       <p className="text-gray-500">
         {description}
       </p>
-      <Link href={href} className="text-blue-500 hover:underline">
+      <Link href={href} className="text-blue-500 font-semibold hover:underline">
         {label}
       </Link>
     </section>
