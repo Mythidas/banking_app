@@ -31,7 +31,7 @@ export async function signUp(userData: SignUpParams) {
       secure: true,
     });
 
-    return JSON.parse(JSON.stringify(newUser)) as User;
+    return JSON.parse(JSON.stringify(newUser));
   } catch (error) {
     console.error(error);
   }
@@ -40,8 +40,11 @@ export async function signUp(userData: SignUpParams) {
 export async function getLoggedInUser() {
   try {
     const { account } = await createSessionClient();
-    return await account.get();
+    const result = await account.get();
+
+    return JSON.parse(JSON.stringify(result));
   } catch (error) {
+    console.error(error);
     return null;
   }
 }

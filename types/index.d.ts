@@ -31,8 +31,7 @@ declare type User = {
   userId: string;
   dwollaCustomerUrl: string;
   dwollaCustomerId: string;
-  firstName: string;
-  lastName: string;
+  name: string;
   address1: string;
   city: string;
   state: string;
@@ -49,17 +48,17 @@ declare type NewUserParams = {
 };
 
 declare type Account = {
-  id: string;
-  availableBalance: number;
-  currentBalance: number;
-  officialName: string;
-  mask: string;
-  institutionId: string;
+  // id: string;
+  // availableBalance: number;
   name: string;
-  type: string;
-  subtype: string;
-  appwriteItemId: string;
-  sharableId: string;
+  currentBalance: number;
+  // officialName: string;
+  // mask: string;
+  // institutionId: string;
+  // type: string;
+  // subtype: string;
+  // appwriteItemId: string;
+  // sharableId: string;
 };
 
 declare type Transaction = {
