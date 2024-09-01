@@ -3,13 +3,21 @@
 import { ID } from "node-appwrite";
 import { createAdminClient, createSessionClient } from "../appwrite";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export async function signIn({ email, password }: { email: string; password: string }) {
   try {
     const { account } = await createAdminClient();
 
-    const response = await account.createEmailPasswordSession(email, password);
-    return JSON.parse(JSON.stringify(response));
+    const session = await account.createEmailPasswordSession(email, password);
+    cookies().set("appwrite-session", session.secret, {
+      path: "/",
+      httpOnly: true,
+      sameSite: "strict",
+      secure: true,
+    });
+
+    return JSON.parse(JSON.stringify(session));
   } catch (error) {
     console.error(error);
     return null;
@@ -22,16 +30,20 @@ export async function signUp(userData: SignUpParams) {
     const { account } = await createAdminClient();
 
     const newUser = await account.create(ID.unique(), email, password, `${firstName} ${lastName}`);
-    const session = await account.createEmailPasswordSession(email, password);
 
-    cookies().set("appwrite-session", session.secret, {
-      path: "/",
-      httpOnly: true,
-      sameSite: "strict",
-      secure: true,
-    });
+    return signIn({ email, password });
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
 
-    return JSON.parse(JSON.stringify(newUser));
+// Create a signOut function that will clear the session cookie 'appwrite-session' and redirect the user to the sign-in page
+export async function signOut() {
+  try {
+    cookies().delete("appwrite-session");
+    redirect("/sign-in");
+
   } catch (error) {
     console.error(error);
   }

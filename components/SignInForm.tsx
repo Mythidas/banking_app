@@ -31,6 +31,7 @@ const SignInForm = () => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const response = await signIn(values);
+
       if (response) {
         router.push("/");
       }

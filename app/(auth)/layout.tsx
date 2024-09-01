@@ -10,7 +10,7 @@ export default function AppLayout({
       <div className="flex-center w-full max-sm:px-6 overflow-y-auto">
         {children}
       </div>
-      <div className="flex w-full bg-blue-50">
+      <div className="xl:flex w-full p-6 pr-0 bg-blue-50 hidden">
         <Image src="/icons/auth-image.svg" width={700} height={700} alt="mock image" className="rounded-l-xl object-contain ml-auto" />
       </div>
     </main>

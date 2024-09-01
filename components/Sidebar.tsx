@@ -6,12 +6,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import SidebarFooter from "./SidebarFooter";
 
-const Sidebar = async ({ user }: { user: User }) => {
+const Sidebar = ({ user }: { user: User }) => {
   const pathname = usePathname();
 
   return (
-    <nav className="md:flex flex-col h-full w-[290px] p-4 pt-6 border-r-[1px] border-gray-200 hidden">
+    <nav className="lg:flex flex-col h-full w-[320px] min-w-[260px] p-4 pt-6 border-r-[1px] border-gray-200 hidden">
       <header className="pb-6">
         <Link href="/" className="flex gap-2">
           <Image src="/icons/logo.svg" alt="logo" width={32} height={32} />
@@ -32,9 +33,7 @@ const Sidebar = async ({ user }: { user: User }) => {
           </Link>
         )
       })}
-      <div className="pt-4 pb-2 mt-auto border-t-[1px] border-gray-200">
-        {user.name}
-      </div>
+      <SidebarFooter user={user} />
     </nav>
   )
 }
