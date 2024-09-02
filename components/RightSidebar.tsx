@@ -8,10 +8,10 @@ import { cn } from "@/lib/utils";
 
 interface RightSidebarProps {
   user: User;
-  accounts: Account[];
+  banks: PlaidBank[];
 }
 
-const RightSidebar = ({ user, accounts }: RightSidebarProps) => {
+const RightSidebar = ({ user, banks }: RightSidebarProps) => {
   return (
     <aside className="xl:flex flex-col hidden w-[375px] h-full border-l-[1px] border-gray-200">
       <section className="flex flex-col">
@@ -37,7 +37,7 @@ const RightSidebar = ({ user, accounts }: RightSidebarProps) => {
           <h2 className="font-semibold">
             My Banks
           </h2>
-          <Link href="/" className="flex h-fit gap-2 ml-auto text-blue-600">
+          <Link href="/my-banks" className="flex h-fit gap-2 ml-auto text-blue-600">
             <span className="text-2xl leading-4">
               +
             </span>
@@ -46,11 +46,11 @@ const RightSidebar = ({ user, accounts }: RightSidebarProps) => {
             </span>
           </Link>
         </div>
-        <div className={cn("relative py-6", { "pb-14": accounts[1] })}>
-          <BankCard account={accounts[0]} user={user} />
-          {accounts[1] && (
+        <div className={cn("relative py-6", { "pb-14": banks[1] })}>
+          <BankCard account={banks[0].accounts[0]} institution={banks[0].institution_name} user={user} />
+          {banks[1] && (
             <div className="absolute top-14 left-6 -z-10">
-              <BankCard account={accounts[1]} user={user} />
+              <BankCard account={banks[1].accounts[0]} institution={banks[1].institution_name} user={user} />
             </div>
           )}
         </div>

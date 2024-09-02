@@ -22,7 +22,7 @@ const Sidebar = ({ user }: { user: User }) => {
         </Link>
       </header>
       {sidebarLinks.map((link) => {
-        const isActive = pathname === link.route || pathname.startsWith(link.route);
+        const isActive = pathname === link.route || pathname.startsWith(`${link.route}/`);
 
         return (
           <Link key={link.label} href={link.route} className={cn("p-4 rounded-md", { "button-gradient": isActive, "text-white": isActive })}>

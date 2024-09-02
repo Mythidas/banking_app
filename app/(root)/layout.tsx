@@ -14,7 +14,7 @@ export default async function RootLayout({
 
   return (
     <main className="flex h-screen w-full font-inter">
-      {loggedInUser && <Sidebar user={loggedInUser} />}
+      <Sidebar user={loggedInUser} />
       <div className="flex size-full flex-col">
         <div className="flex lg:hidden">
           <MobileNav user={loggedInUser} />

@@ -10,6 +10,7 @@ import { Form } from "@/components/ui/form"
 import CustomFormField from "./CustomFormField";
 import AuthFormFooter from "./AuthFormFooter";
 import { signUp } from "@/lib/actions/user.actions";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   firstName: z.string().min(3).max(50),
@@ -25,8 +26,8 @@ const formSchema = z.object({
 })
 
 const SignUpForm = () => {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const [user, setUser] = useState<User | undefined>(undefined);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -48,11 +49,8 @@ const SignUpForm = () => {
     setIsLoading(true);
 
     try {
-      // Call the signUp function from user.actions.ts
-      // Pass the values from the form
       const newUser = await signUp(values);
-      setUser(newUser);
-      console.log(newUser);
+      if (newUser) router.push("/my-banks");
     } catch (error) {
       console.error(error);
     } finally {
@@ -61,7 +59,7 @@ const SignUpForm = () => {
   }
 
   return (
-    <section className="flex w-full max-w-[420px] flex-col justify-center gap-5 py-10 md:gap-8">
+    <section className="flex w-full max-w-[420px] flex-col justify-center gap-6 py-10 md:gap-8">
       <AuthFormHeader label="Sign up" description="Please enter your details." />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
