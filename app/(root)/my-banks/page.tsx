@@ -30,11 +30,6 @@ const MyBanks = async () => {
             <LinkPlaid user={loggedInUser} />
           </div>
           <div className="flex flex-col pb-10 w-fit md:flex-row md:flex-wrap gap-10">
-            {!banks.length && (
-              <div className="w-64">
-                <LinkPlaid user={loggedInUser} newLink />
-              </div>
-            )}
             {banks.map((bank) => {
               return bank.accounts.map((account) => {
                 return (
@@ -43,6 +38,13 @@ const MyBanks = async () => {
               })
             })}
           </div>
+          {!banks.length && (
+            <div className="flex-center w-full h-3/5">
+              <h1 className="text-4xl text-gray-400">
+                No Accounts Linked
+              </h1>
+            </div>
+          )}
         </div>
       </div>
     </section>

@@ -1,6 +1,12 @@
 import Image from "next/image";
 import React from 'react'
-import { Progress } from "./ui/progress";
+import { Progress } from "@/components/ui/progress";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 interface BankCardProps {
   account: PlaidAccount;
@@ -49,12 +55,21 @@ const BankCard = async ({ account, institution, user, showBalance }: BankCardPro
       {showBalance && (
         <div className="flex flex-col gap-2">
           <div className="flex justify-between text-sm">
-            <p>Spending this month</p>
+            <p>Total Balance</p>
             <p className="text-gray-600">
-              {`$2,840.40`}
+              {account.balances.limit === null ? "No limit" : `$${account.balances.limit}`}
             </p>
           </div>
-          <Progress value={account.balances.limit === null ? 5 : account.balances.limit / account.balances.available} color="bg-blue-600" className="h-[10px]" />
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <Progress value={account.balances.limit === null ? 5 : account.balances.limit / account.balances.available} color="bg-blue-600" className="h-[10px]" />
+              </TooltipTrigger>
+              <TooltipContent>
+                {`$${account.balances.available} / ${account.balances.limit === null ? "No limit" : account.balances.limit}`}
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>)}
     </div>
   )

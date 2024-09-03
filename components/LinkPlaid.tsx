@@ -37,7 +37,7 @@ const LinkPlaid = ({ user, newLink }: { user: User, newLink?: boolean }) => {
   return (
     <Button className={cn({ "button-gradient": newLink, "flex h-fit gap-2 bg-white text-blue-600 px-4 py-0": !newLink })} onClick={() => open()} disabled={!ready}>
       {!newLink && <span className="text-2xl leading-[1.35rem]">+</span>}
-      Link Plaid
+      Link Accounts
     </Button>
   )
 }
